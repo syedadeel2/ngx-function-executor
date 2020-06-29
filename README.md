@@ -1,27 +1,53 @@
-# AngularModules
+# NgxFunctionExecutor
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
+Allows angular to execute user-defined methods smoothly without caring for Change Detection problem which triggers the method multiple times whenever there is a change.
 
-## Development server
+Ngx-FE is a directive which takes 3 inputs and executes your method from a template without impacting any performance.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Usage
 
-## Code scaffolding
+app.module.ts
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```typescript
+import { NgxFunctionExecutorDirective } from 'ngx-function-executor';
+@NgModule({
+  declarations: [
+    AppComponent,
+    NgxFunctionExecutorDirective,
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppModule { }
+```
 
-## Build
+Component
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```html
+<any-component ngx-fe [fnObject]="myObjectWhichContainsMethod"
+fnName="MethodNameToCall" [fnParm]="[myMethodPar1,myMethodPar2]">
+</any-component>
+```
 
-## Running unit tests
+Example
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```typescript
+const myObject = {
+  propert1: false,
+  myFunction: (params: any[]) => {
+    console.log(params[0] + params[1]);
+  }
+};
+```
 
-## Running end-to-end tests
+```html
+<div ngx-fe [fnObject]="myObject" fnName="myFunction" [fnParm]="[2,3]"></div>
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before we used to call the method in template {{myFunction(2,3)}} which the angular change detection will trigger many times whenever there is any change even on mouse move. This creates a performance issue.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+What i have done is very simple logic to take the inputs as a directive and execute the method from the object which will execute smoothly without triggering 100s of time.

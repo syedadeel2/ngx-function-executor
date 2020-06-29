@@ -1,27 +1,32 @@
-# AngularModules
+# NgxFunctionExecutor
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
+Allows angular to execute user-defined methods smoothly without caring for Change Detection problem which triggers the method multiple times whenever there is a change.
 
-## Development server
+Ngx-FE is a directive which takes 3 inputs and executes your method from a template without impacting any performance.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Usage
 
-## Code scaffolding
+app.module.ts
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```typescript
+import { NgxFunctionExecutorDirective } from 'ngx-function-executor';
+@NgModule({
+  declarations: [
+    AppComponent,
+    NgxFunctionExecutorDirective,
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppModule { }
+```
 
-## Build
+Component
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```language
+<any-component ngx-fe [fnObject]="myObjectWhichContainsMethod" fnName="MethodNameToCall" [fnParm]="[myMethodPar1,myMethodPar2]"></any-component>
+```

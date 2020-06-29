@@ -1,6 +1,6 @@
 {
   "name": "ngx-function-executor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Adeel Rizvi",
   "description": "Allows angular to execute user-defined methods smoothly without caring for Change Detection problem which triggers the method multiple times whenever there is a change. Ngx-FE is a directive which takes 3 inputs and executes your method from a template without impacting any performance.",
   "repository": {
@@ -21,9 +21,11 @@
     "function execute"
   ],
   "license": "MIT",
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
   "peerDependencies": {
     "@angular/common": "^9.0.7",
-    "@angular/core": "^9.0.7",
-    "tslib": "^1.10.0"
+    "@angular/core": "^9.0.7"
   }
 }
